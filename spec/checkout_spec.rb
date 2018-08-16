@@ -6,6 +6,11 @@ PRODUCTS = [
   {product_code: 003, name: "Funky light", price: 19.95},
 ]
 
+PROMO = [
+  {type: :percentage, amount: 10, minimum: 60},
+  {type: :price_drop, price: 8.5, product_code: 001, minimum: 2}
+]
+
 describe "Checkout" do
 
   describe "#scan" do
@@ -19,7 +24,7 @@ describe "Checkout" do
 
   describe "#total" do
     it "should total £0 if the basket is empty" do
-      co = Checkout.new
+      co = Checkout.new(PROMOS)
       expect(co.total).to eq(0)
     end
 

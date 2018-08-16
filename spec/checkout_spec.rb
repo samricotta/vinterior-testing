@@ -1,4 +1,4 @@
-require_relative "checkout"
+require_relative "../checkout"
 
 PRODUCTS = [
   {product_code: 001, name: "Very Cheap Chair", price: 9.25},
@@ -17,9 +17,34 @@ describe "Checkout" do
   end
 
   describe "#total" do
+    it "should total £0 if the basket is empty" do
+          co = Checkout.new
+          expect(co.total).to eq(0)
+      end
+
     it "should total £66.78 for the basket: 001, 002, 003" do
       co = Checkout.new
-      expect().to eq()
+      scanned = co.scan(PRODUCTS[0])
+      scanned = co.scan(PRODUCTS[1])
+      scanned = co.scan(PRODUCTS[2])
+      expect(co.total).to eq(66.78)
+  end
+
+    it "should total £36.95 for the basket: 001, 003, 001 " do
+      co = Checkout.new
+      scanned = co.scan(PRODUCTS[0])
+      scanned = co.scan(PRODUCTS[2])
+      scanned = co.scan(PRODUCTS[0])
+      expect(co.total).to eq(36.95)
+  end
+
+    it "should total £73.76 for the basket: 001, 002, 001, 003 " do
+      co = Checkout.new
+      scanned = co.scan(PRODUCTS[0])
+      scanned = co.scan(PRODUCTS[1])
+      scanned = co.scan(PRODUCTS[0])
+      scanned = co.scan(PRODUCTS[2])
+      expect(co.total).to eq(73.76)
     end
   end
 end
